@@ -53,10 +53,10 @@ function addCardEventListeners() {
 }
 
 function clickedCards(card) {
-    // Отображение лицевой стороны карты
+    // Show card's face
     let cardFace = card.querySelector(".card-face");
     let coverCard = card.querySelector(".card-cover");
 
-    cardFace.style.display = "block"; // Показываем лицевую сторону
-    coverCard.style.display = "none"; // Скрываем рубашку
+    cardFace.style.display = "block"; // Show card's face
+    coverCard.style.display = "none"; // Hide card's back
 }
