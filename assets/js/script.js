@@ -9,15 +9,22 @@ document.addEventListener("DOMContentLoaded", function () {
         `<img src="assets/images/4.png">`
     ];
 
+
+
     //Shuffle the cards
     for (let i = 0; i < cards.length; i++) {
-        let randomPlace = Math.floor(Math.random() * 8);
+        let randomPlace = Math.floor(Math.random() * cards.length);
         let tempCard = cards[i];
         cards[i] = cards[randomPlace];
         cards[randomPlace] = tempCard;
     }
     showCards(cards);
+
 })
+
+let selectedCards = [];
+let foundCards = 0;
+let twoOpened = false;
 
 /**
  * Showing the cards 
@@ -43,7 +50,6 @@ function showCards(cards) {
 
 function addCardEventListeners() {
     let cardElements = document.querySelectorAll(".card");
-    console.log(cardElements);
 
     for (let card of cardElements) {
         card.addEventListener("click", function () {
@@ -53,10 +59,48 @@ function addCardEventListeners() {
 }
 
 function clickedCards(card) {
+    if (twoOpened) return;
     // Show card's face
     let cardFace = card.querySelector(".card-face");
     let coverCard = card.querySelector(".card-cover");
 
     cardFace.style.display = "block"; // Show card's face
     coverCard.style.display = "none"; // Hide card's back
+
+    selectedCards.push(card);
+
+    if (selectedCards.length === 2) {
+        twoOpened = true;
+
+        checkForMatch();
+    }
+}
+
+function checkForMatch() {
+
+    let firstSource = selectedCards[0].querySelector(".card-face img").src;
+    let secondSource = selectedCards[1].querySelector(".card-face img").src;
+
+    if (firstSource === secondSource) {
+        foundCards++;
+        selectedCards = [];
+        twoOpened = false;
+        console.log(foundCards);
+    } else {
+        let firstFace = selectedCards[0].querySelector(".card-face");
+        let firstCover = selectedCards[0].querySelector(".card-cover");
+        let secondFace = selectedCards[1].querySelector(".card-face");
+        let secondCover = selectedCards[1].querySelector(".card-cover");
+        setTimeout(() => {
+            firstFace.style.display = "none";
+            firstCover.style.display = "block";
+
+            secondFace.style.display = "none";
+            secondCover.style.display = "block";
+        }, 1000)
+
+        selectedCards = [];
+
+        twoOpened = false;
+    }
 }
