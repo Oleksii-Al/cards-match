@@ -30,6 +30,7 @@ let twoOpened = false;
  * Showing the cards 
  */
 function showCards(cards) {
+
     let cardsContainer = document.getElementById("cards-container");
     let cardsHtml = '';
 
@@ -49,6 +50,7 @@ function showCards(cards) {
 }
 
 function addCardEventListeners() {
+
     let cardElements = document.querySelectorAll(".card");
 
     for (let card of cardElements) {
@@ -60,6 +62,7 @@ function addCardEventListeners() {
 
 function clickedCards(card) {
     if (twoOpened) return;
+
     // Show card's face
     let cardFace = card.querySelector(".card-face");
     let coverCard = card.querySelector(".card-cover");
@@ -72,7 +75,7 @@ function clickedCards(card) {
     if (selectedCards.length === 2) {
         twoOpened = true;
 
-        checkForMatch();
+       setTimeout(checkForMatch, 1000);
     }
 }
 
@@ -82,25 +85,23 @@ function checkForMatch() {
     let secondSource = selectedCards[1].querySelector(".card-face img").src;
 
     if (firstSource === secondSource) {
+        twoOpened = false;
         foundCards++;
         selectedCards = [];
-        twoOpened = false;
         console.log(foundCards);
     } else {
+        twoOpened = false;
         let firstFace = selectedCards[0].querySelector(".card-face");
         let firstCover = selectedCards[0].querySelector(".card-cover");
         let secondFace = selectedCards[1].querySelector(".card-face");
         let secondCover = selectedCards[1].querySelector(".card-cover");
-        setTimeout(() => {
+        
             firstFace.style.display = "none";
             firstCover.style.display = "block";
 
             secondFace.style.display = "none";
             secondCover.style.display = "block";
-        }, 1000)
 
         selectedCards = [];
-
-        twoOpened = false;
     }
 }
