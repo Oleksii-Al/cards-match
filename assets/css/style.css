@@ -1,15 +1,27 @@
-.card-container {
+#cards-container {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     flex-direction: row;
-    flex-grow: 1;
 }
 
 .card {
-    background-color: aqua;
-    height: 200px;
+    max-height: 200px;
     width: 100px;
-    background-color: lightcoral;
+    /* background-color: lightcoral; */
     margin: 20px;
+    flex-grow: 1;
+}
+
+.card-cover {
+    max-height: 100%;
+}
+
+.card-face {
+    display: none;
+    height: 200px;
+}
+
+.card-face img {
+    max-height: 100%;
 }
